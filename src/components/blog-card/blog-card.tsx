@@ -8,7 +8,7 @@ interface IBlogCardProps {
 
 export const BlogCard: FC<IBlogCardProps> = ({ blog }) => {
   return (
-    <Card>
+    <Card sx={{ maxHeight: "320px" }}>
       <CardMedia component="img" image={blog.img} height={150} alt="picture" />
       <CardContent sx={{ pb: 0 }}>
         <Typography
