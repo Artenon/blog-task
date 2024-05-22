@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardMedia, CardActions, Button, Typography } from "@mui/material";
 import { IBlog } from "../../types/blog";
 
@@ -7,8 +8,11 @@ interface IBlogCardProps {
 }
 
 export const BlogCard: FC<IBlogCardProps> = ({ blog }) => {
+  const navigate = useNavigate();
+  const showMoreClickHandler = () => navigate(`/blog/${blog.id}`);
+
   return (
-    <Card sx={{ maxHeight: "320px" }}>
+    <Card sx={{ maxHeight: "320px", color: "#625854" }}>
       <CardMedia component="img" image={blog.img} height={150} alt="picture" />
       <CardContent sx={{ pb: 0 }}>
         <Typography
@@ -38,7 +42,9 @@ export const BlogCard: FC<IBlogCardProps> = ({ blog }) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button sx={{ textTransform: "none" }}>Подробнее</Button>
+        <Button sx={{ textTransform: "none" }} onClick={showMoreClickHandler}>
+          Подробнее
+        </Button>
       </CardActions>
     </Card>
   );

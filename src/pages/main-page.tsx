@@ -11,7 +11,7 @@ import data from "../data/data.json";
 export const MainPage: FC = () => {
   const dispatch = useAppDispatch();
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const blogs = useAppSelector(getBlogs);
 

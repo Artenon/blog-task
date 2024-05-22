@@ -20,7 +20,6 @@ const Header = styled(Box)({
     alignItems: "center",
     justifyContent: "space-between",
   },
-  " a": { textDecoration: "none", color: "#222" },
 });
 
 const LinkButton = styled(IconButton)({

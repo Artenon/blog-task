@@ -3,7 +3,7 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color: #222;
+  color: #625854;
   background-color: #F7F6F2;
 
   font-synthesis: none;
@@ -22,4 +22,13 @@
   ::-webkit-scrollbar-thumb {
     background: #888;
   }
+}
+
+a {
+  text-decoration: none;
+  color: #625854;
+}
+
+a.underline:hover {
+  text-decoration: underline;
 }
