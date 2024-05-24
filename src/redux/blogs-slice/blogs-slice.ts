@@ -19,7 +19,15 @@ export const blogsSlice = createSlice({
     addBlog: (state, action: PayloadAction<IBlog>) => {
       state.blogs.push(action.payload);
     },
+    addComment: (state, action: PayloadAction<{ blogId: number; comment: string }>) => {
+      const { blogId, comment } = action.payload;
+      state.blogs.map((blog) => {
+        if (blog.id === blogId) {
+          blog.comments!.push(comment);
+        }
+      });
+    },
   },
 });
 
-export const { setBlogs, addBlog } = blogsSlice.actions;
+export const { setBlogs, addBlog, addComment } = blogsSlice.actions;

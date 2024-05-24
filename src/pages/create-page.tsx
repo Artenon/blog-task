@@ -51,7 +51,7 @@ export const CreatePage: FC = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data = { ...formData, id: Date.now() };
+    const data: IBlog = { ...formData, id: Date.now(), comments: [] };
     dispatch(addBlog(data));
     navigate("/");
   };

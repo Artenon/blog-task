@@ -3,5 +3,5 @@ export interface IBlog {
   title: string;
   content: string;
   img?: string;
-  comments?: string;
+  comments?: string[];
 }

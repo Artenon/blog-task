@@ -11,6 +11,7 @@ import {
 import { useAppSelector } from "../hooks/store";
 import { getBlogs } from "../redux/blogs-slice/selectors";
 import { BlogPicture } from "../components/blog-picture/blog-picture";
+import { Comments } from "../components/comments/comments";
 import { IBlog } from "../types/blog";
 
 import HomeIcon from "@mui/icons-material/Home";
@@ -79,13 +80,14 @@ export const BlogPage: FC = () => {
           <Grid container spacing={4}>
             <Grid item xs={12} md={8} order={{ xs: 2, md: 1 }}>
               {loading ? (
-                <>
-                  <Skeleton variant="rectangular" height={300} />
-                </>
+                <Skeleton variant="rectangular" height={300} />
               ) : (
-                <Typography variant="body1" color="text.secondary">
-                  {blog!.content}
-                </Typography>
+                <>
+                  <Typography variant="body1" color="text.secondary" marginBottom={2}>
+                    {blog!.content}
+                  </Typography>
+                  <Comments blog={blog!} />
+                </>
               )}
             </Grid>
             <Grid
