@@ -2,6 +2,7 @@ import { FC, useState, useEffect } from "react";
 import { Container, Typography, Grid } from "@mui/material";
 import { BlogCard } from "../components/blog-card/blog-card";
 import { BlogCardSkeleton } from "../components/blog-card/skeleton";
+import { Table } from "../components/table/table";
 import { useAppDispatch, useAppSelector } from "../hooks/store";
 import { getBlogs } from "../redux/blogs-slice/selectors";
 
@@ -25,7 +26,7 @@ export const MainPage: FC = () => {
       <Typography variant="h5" gutterBottom>
         Статьи
       </Typography>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} marginBottom={2}>
         {loading
           ? Array.from({ length: 6 }).map((_, index) => (
               <Grid item xs={12} sm={6} md={4} key={`skeleton-${index}`}>
@@ -38,6 +39,7 @@ export const MainPage: FC = () => {
               </Grid>
             ))}
       </Grid>
+      {!loading && <Table />}
     </Container>
   );
 };
