@@ -32,7 +32,7 @@ export const BlogPage: FC = () => {
             setBlog(foundBlog);
           }
           setLoading(false);
-        }, 1000);
+        }, 300);
       })
       .catch((error) => {
         console.log(error);
@@ -90,7 +90,7 @@ export const BlogPage: FC = () => {
                   <Skeleton variant="rectangular" height={300} />
                 </>
               ) : (
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body1" color="text.secondary">
                   {blog!.content}
                 </Typography>
               )}
@@ -106,7 +106,7 @@ export const BlogPage: FC = () => {
                 <Skeleton
                   variant="rectangular"
                   height={200}
-                  width={400}
+                  width={350}
                   sx={{ borderRadius: "15px" }}
                 />
               ) : (

@@ -36,7 +36,7 @@ export const MainPage: FC = () => {
   return (
     <Container>
       <Typography variant="h5" gutterBottom>
-        Main Page
+        Статьи
       </Typography>
       <Grid container spacing={2}>
         {loading
