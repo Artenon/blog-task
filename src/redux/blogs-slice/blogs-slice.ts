@@ -5,8 +5,10 @@ import data from "../../data/data.json";
 
 const initialState: {
   blogs: IBlog[];
+  searchQuery: string;
 } = {
   blogs: data.blogs,
+  searchQuery: "",
 };
 
 export const blogsSlice = createSlice({
@@ -27,7 +29,10 @@ export const blogsSlice = createSlice({
         }
       });
     },
+    changeSearchQuery: (state, action: PayloadAction<string>) => {
+      state.searchQuery = action.payload;
+    },
   },
 });
 
-export const { setBlogs, addBlog, addComment } = blogsSlice.actions;
+export const { setBlogs, addBlog, addComment, changeSearchQuery } = blogsSlice.actions;

@@ -36,6 +36,24 @@ const Input = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+const Label = ({ htmlFor, label }: { label: string; htmlFor: string }) => (
+  <InputLabel
+    shrink
+    htmlFor={htmlFor}
+    sx={{
+      fontSize: 18,
+      left: -10,
+      transition: ".2s",
+      [`&.${inputLabelClasses.focused}`]: {
+        color: "#625854",
+        fontWeight: "bold",
+      },
+    }}
+  >
+    {label}
+  </InputLabel>
+);
+
 export const CreatePage: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -65,40 +83,12 @@ export const CreatePage: FC = () => {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <FormControl sx={{ marginY: 1 }} fullWidth>
-              <InputLabel
-                shrink
-                htmlFor="title"
-                sx={{
-                  fontSize: 18,
-                  left: -10,
-                  transition: ".2s",
-                  [`&.${inputLabelClasses.focused}`]: {
-                    color: "#625854",
-                    fontWeight: "bold",
-                  },
-                }}
-              >
-                Заголовок *
-              </InputLabel>
+              <Label htmlFor="title" label="Заголовок *" />
               <Input fullWidth id="title" name="title" onChange={handleChange} required />
             </FormControl>
 
             <FormControl sx={{ marginY: 1 }} fullWidth>
-              <InputLabel
-                shrink
-                htmlFor="content"
-                sx={{
-                  fontSize: 18,
-                  left: -10,
-                  transition: ".2s",
-                  [`&.${inputLabelClasses.focused}`]: {
-                    color: "#625854",
-                    fontWeight: "bold",
-                  },
-                }}
-              >
-                Содержание *
-              </InputLabel>
+              <Label htmlFor="content" label="Содержание *" />
               <Input
                 multiline
                 minRows={4}
@@ -111,21 +101,7 @@ export const CreatePage: FC = () => {
             </FormControl>
 
             <FormControl sx={{ marginY: 1 }} fullWidth>
-              <InputLabel
-                shrink
-                htmlFor="img"
-                sx={{
-                  fontSize: 18,
-                  left: -10,
-                  transition: ".2s",
-                  [`&.${inputLabelClasses.focused}`]: {
-                    color: "#625854",
-                    fontWeight: "bold",
-                  },
-                }}
-              >
-                URL на картинку
-              </InputLabel>
+              <Label htmlFor="img" label="URL на картинку" />
               <Input fullWidth id="img" name="img" onChange={handleChange} />
             </FormControl>
           </Grid>
