@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState, useRef } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Box, Container, Typography, Breadcrumbs, Skeleton } from "@mui/material";
 import { IBlog } from "../types/blog";
@@ -13,21 +13,25 @@ export const BlogPage: FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [blog, setBlog] = useState<IBlog | null>(null);
 
+  const timeout = useRef<number | undefined>();
+
   useEffect(() => {
     Promise.resolve(data)
       .then((data) => {
-        setTimeout(() => {
+        timeout.current = setTimeout(() => {
           const foundBlog = data.blogs.find((blog) => blog.id === Number(blogId));
           if (foundBlog) {
             setBlog(foundBlog);
           }
           setLoading(false);
-        }, 750);
+        }, 300);
       })
       .catch((error) => {
         console.log(error);
         setLoading(false);
       });
+
+    return () => clearTimeout(timeout.current);
   }, [blogId]);
 
   return (
