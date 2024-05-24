@@ -13,12 +13,11 @@ export const BlogCard: FC<IBlogCardProps> = ({ blog }) => {
 
   return (
     <Card sx={{ maxHeight: "320px", color: "#625854" }}>
-      <CardMedia component="img" image={blog.img} height={150} alt="picture" />
+      <CardMedia component="img" loading="lazy" image={blog.img} height={150} alt="picture" />
       <CardContent sx={{ pb: 0 }}>
         <Typography
           gutterBottom
           variant="h5"
-          component="div"
           overflow="hidden"
           textOverflow="ellipsis"
           whiteSpace="nowrap"

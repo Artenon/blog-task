@@ -1,6 +1,14 @@
 import { FC, useEffect, useState, useRef } from "react";
 import { useParams, Link } from "react-router-dom";
-import { Box, Container, Typography, Breadcrumbs, Skeleton } from "@mui/material";
+import {
+  Container,
+  Typography,
+  Breadcrumbs,
+  Skeleton,
+  Grid,
+  breadcrumbsClasses,
+} from "@mui/material";
+import { BlogPicture } from "../components/blog-picture/blog-picture";
 import { IBlog } from "../types/blog";
 
 import HomeIcon from "@mui/icons-material/Home";
@@ -24,7 +32,7 @@ export const BlogPage: FC = () => {
             setBlog(foundBlog);
           }
           setLoading(false);
-        }, 300);
+        }, 1000);
       })
       .catch((error) => {
         console.log(error);
@@ -36,35 +44,77 @@ export const BlogPage: FC = () => {
 
   return (
     <Container>
-      <Breadcrumbs aria-label="breadcrumb" sx={{ marginY: 1 }}>
+      <Breadcrumbs
+        aria-label="breadcrumb"
+        sx={{
+          marginY: 1,
+          [` .${breadcrumbsClasses.ol}`]: {
+            flexWrap: "nowrap",
+            maxWidth: "88%",
+          },
+          [` .${breadcrumbsClasses.li}`]: {
+            maxWidth: "100%",
+          },
+        }}
+      >
         <Link
           className="underline"
           to="/"
-          style={{ display: "flex", alignItems: "center", gap: 1 }}
+          style={{ display: "flex", alignItems: "center", gap: 6 }}
         >
           <HomeIcon htmlColor="rgba(61,48,45, 0.8)" />
-          Главная
+          <Typography sx={{ display: { xs: "none", sm: "block" } }}>Главная</Typography>
         </Link>
-        <Typography color="text.primary">
+        <Typography
+          color="text.primary"
+          overflow="hidden"
+          textOverflow="ellipsis"
+          whiteSpace="nowrap"
+        >
           {loading ? <Skeleton variant="rectangular" width={150} height={20} /> : blog?.title}
         </Typography>
       </Breadcrumbs>
-      {loading ? (
-        <Skeleton variant="rectangular" width="100%" height={400} />
-      ) : !blog ? (
+      {!blog && !loading ? (
         <Typography variant="h5" gutterBottom>
           Такой блог не найден
         </Typography>
       ) : (
-        <Box>
-          <img src={blog.img} alt={blog.title} />
+        <>
           <Typography variant="h5" gutterBottom>
-            {blog.title}
+            {loading ? <Skeleton width={300} /> : blog!.title}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {blog.content}
-          </Typography>
-        </Box>
+          <Grid container spacing={4}>
+            <Grid item xs={12} md={8} order={{ xs: 2, md: 1 }}>
+              {loading ? (
+                <>
+                  <Skeleton variant="rectangular" height={300} />
+                </>
+              ) : (
+                <Typography variant="body2" color="text.secondary">
+                  {blog!.content}
+                </Typography>
+              )}
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              md={4}
+              order={{ xs: 1, md: 2 }}
+              sx={{ display: "flex", justifyContent: "center" }}
+            >
+              {loading ? (
+                <Skeleton
+                  variant="rectangular"
+                  height={200}
+                  width={400}
+                  sx={{ borderRadius: "15px" }}
+                />
+              ) : (
+                <BlogPicture src={blog!.img} />
+              )}
+            </Grid>
+          </Grid>
+        </>
       )}
     </Container>
   );
