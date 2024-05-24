@@ -13,7 +13,9 @@ export const BlogCard: FC<IBlogCardProps> = ({ blog }) => {
 
   return (
     <Card sx={{ maxHeight: "320px", color: "#625854" }}>
-      <CardMedia component="img" loading="lazy" image={blog.img} height={150} alt="picture" />
+      {blog.img && (
+        <CardMedia component="img" loading="lazy" image={blog.img} height={150} alt="picture" />
+      )}
       <CardContent sx={{ pb: 0 }}>
         <Typography
           gutterBottom

@@ -1,4 +1,4 @@
-import { FC, useEffect, useState, useRef } from "react";
+import { FC, useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import {
   Container,
@@ -8,12 +8,12 @@ import {
   Grid,
   breadcrumbsClasses,
 } from "@mui/material";
+import { useAppSelector } from "../hooks/store";
+import { getBlogs } from "../redux/blogs-slice/selectors";
 import { BlogPicture } from "../components/blog-picture/blog-picture";
 import { IBlog } from "../types/blog";
 
 import HomeIcon from "@mui/icons-material/Home";
-
-import data from "../data/data.json";
 
 export const BlogPage: FC = () => {
   const { blogId } = useParams<{ blogId: string }>();
@@ -21,26 +21,19 @@ export const BlogPage: FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [blog, setBlog] = useState<IBlog | null>(null);
 
-  const timeout = useRef<number | undefined>();
+  const blogs = useAppSelector(getBlogs);
 
   useEffect(() => {
-    Promise.resolve(data)
-      .then((data) => {
-        timeout.current = setTimeout(() => {
-          const foundBlog = data.blogs.find((blog) => blog.id === Number(blogId));
-          if (foundBlog) {
-            setBlog(foundBlog);
-          }
-          setLoading(false);
-        }, 300);
-      })
-      .catch((error) => {
-        console.log(error);
-        setLoading(false);
-      });
+    const timeout = setTimeout(() => {
+      const foundBlog = blogs.find((blog) => blog.id === Number(blogId));
+      if (foundBlog) {
+        setBlog(foundBlog);
+      }
+      setLoading(false);
+    }, 300);
 
-    return () => clearTimeout(timeout.current);
-  }, [blogId]);
+    return () => clearTimeout(timeout);
+  }, [blogId, blogs]);
 
   return (
     <Container>
@@ -76,7 +69,7 @@ export const BlogPage: FC = () => {
       </Breadcrumbs>
       {!blog && !loading ? (
         <Typography variant="h5" gutterBottom>
-          Такой блог не найден
+          Такая статья не найдена
         </Typography>
       ) : (
         <>
@@ -110,7 +103,7 @@ export const BlogPage: FC = () => {
                   sx={{ borderRadius: "15px" }}
                 />
               ) : (
-                <BlogPicture src={blog!.img} />
+                blog?.img && <BlogPicture src={blog?.img} />
               )}
             </Grid>
           </Grid>

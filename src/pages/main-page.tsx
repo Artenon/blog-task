@@ -1,12 +1,9 @@
-import { FC, useState, useEffect, useRef } from "react";
+import { FC, useState, useEffect } from "react";
 import { Container, Typography, Grid } from "@mui/material";
 import { BlogCard } from "../components/blog-card/blog-card";
 import { BlogCardSkeleton } from "../components/blog-card/skeleton";
 import { useAppDispatch, useAppSelector } from "../hooks/store";
-import { setBlogs } from "../redux/blogs-slice/blogs-slice";
 import { getBlogs } from "../redux/blogs-slice/selectors";
-
-import data from "../data/data.json";
 
 export const MainPage: FC = () => {
   const dispatch = useAppDispatch();
@@ -15,22 +12,12 @@ export const MainPage: FC = () => {
 
   const blogs = useAppSelector(getBlogs);
 
-  const timeout = useRef<number | undefined>();
-
   useEffect(() => {
-    Promise.resolve(data)
-      .then((data) => {
-        timeout.current = setTimeout(() => {
-          dispatch(setBlogs(data.blogs));
-          setLoading(false);
-        }, 300);
-      })
-      .catch((error) => {
-        setLoading(false);
-        console.log(error);
-      });
+    const timeout = setTimeout(() => {
+      setLoading(false);
+    }, 300);
 
-    return () => clearTimeout(timeout.current);
+    return () => clearTimeout(timeout);
   }, [dispatch]);
 
   return (

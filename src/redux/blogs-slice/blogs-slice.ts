@@ -1,10 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IBlog } from "../../types/blog";
 
+import data from "../../data/data.json";
+
 const initialState: {
   blogs: IBlog[];
 } = {
-  blogs: [],
+  blogs: data.blogs,
 };
 
 export const blogsSlice = createSlice({
